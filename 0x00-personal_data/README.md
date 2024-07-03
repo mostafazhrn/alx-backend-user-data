@@ -1,0 +1,1 @@
+this is a readme file for the task 0x00-personal_data for the alx software engenireeing prgram which ocnsists of 7 mandatory tasks and 1 advanced as follows
