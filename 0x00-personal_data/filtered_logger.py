@@ -3,6 +3,7 @@
 import re
 from typing import List
 import logging
+import mysql.connector
 import os
 
 
@@ -24,6 +25,16 @@ class RedactingFormatter(logging.Formatter):
 
 
 PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """ this instance shall return a database connection"""
+    return mysql.connector.connect(
+        host=os.getenv('PERSONAL_DATA_DB_HOST', 'localhost'),
+        database=os.getenv('PERSONAL_DATA_DB_NAME', 'root'),
+        user=os.getenv('PERSONAL_DATA_DB_USERNAME'),
+        password=os.getenv('PERSONAL_DATA_DB_PASSWORD')
+    )
 
 
 def filter_datum(fields: List[str],
