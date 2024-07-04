@@ -52,8 +52,24 @@ def get_logger() -> logging.Logger:
     logger = logging.getLogger('user_data')
     logger.setLevel(logging.INFO)
     logger.propagate = False
+
     aim_hnadler = logging.StreamHandler()
     aim_hnadler.setLevel(logging.INFO)
     formatte = RedactingFormatter(list(PII_FIELDS))
+    aim_hnadler.setFormatter(formatte)
     logger.addHandler(aim_hnadler)
     return logger
+
+
+if __name__ == '__main__':
+    connect = get_db()
+    cursor = connect.cursor(dictionary=True)
+    quer = ("SELECT * FROM users")
+    cursor.execute(quer)
+    for x in cursor:
+        str = ""
+        for cle in x:
+            str += "{}={}; ".format(cle, x[cle])
+        print(str)
+    cursor.close()
+    connect.close()
