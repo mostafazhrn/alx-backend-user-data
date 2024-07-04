@@ -30,10 +30,10 @@ PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
 def get_db() -> mysql.connector.connection.MySQLConnection:
     """ this instance shall return a database connection"""
     return mysql.connector.connect(
+        user=os.getenv('PERSONAL_DATA_DB_USERNAME', 'root'),
+        password=os.getenv('PERSONAL_DATA_DB_PASSWORD', ''),
         host=os.getenv('PERSONAL_DATA_DB_HOST', 'localhost'),
-        database=os.getenv('PERSONAL_DATA_DB_NAME', 'root'),
-        user=os.getenv('PERSONAL_DATA_DB_USERNAME'),
-        password=os.getenv('PERSONAL_DATA_DB_PASSWORD')
+        database=os.getenv('PERSONAL_DATA_DB_NAME')
     )
 
 
