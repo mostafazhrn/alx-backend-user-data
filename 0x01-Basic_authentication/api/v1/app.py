@@ -38,9 +38,6 @@ def forbidden(error) -> str:
 @app.before_request
 def before_request() -> str:
     """ This instance shall handle all before request auth"""
-    @app.before_request
-def before_request() -> str:
-    """ This instance shall handle all before request auth"""
     if auth is not None:
         if auth.require_auth(path=request.path,
                              ex_paths=["/api/v1/status/",
