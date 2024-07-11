@@ -8,6 +8,8 @@ from typing import TypeVar
 
 class BasicAuth(Auth):
     """ this class shall rep the BasicAuth class"""
+    def __init__(self):
+        """ THis hsall init the class"""
 
     def extract_base64_authorization_header(self,
                                             authorization_header: str) -> str:
