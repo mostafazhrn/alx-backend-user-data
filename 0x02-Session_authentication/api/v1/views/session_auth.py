@@ -5,7 +5,6 @@ from flask import jsonify, request, abort, make_response
 from models.user import User
 from os import getenv
 from typing import TypeVar, List
-from api.v1.app import auth
 
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
@@ -22,6 +21,7 @@ def login():
     user_found = User.search({'email': email})
     if len(user_found) == 0:
         return jsonify({"error": "no user found for this email"}), 404
+    from api.v1.app import auth
     for usr in user_found:
         if usr.is_valid_password(password):
             session_id = auth.create_session(usr.id)
@@ -37,6 +37,7 @@ def login():
                  methods=['DELETE'], strict_slashes=False)
 def logout():
     """ This instance shall logout the user """
+    from api.v1.app import auth
     desto = auth.destroy_session(request)
     if desto is False:
         abort(404)
