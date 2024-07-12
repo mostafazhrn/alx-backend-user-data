@@ -10,7 +10,7 @@ from typing import List, TypeVar
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 auth = None
 AUTH_TYPE = getenv("AUTH_TYPE")
 
