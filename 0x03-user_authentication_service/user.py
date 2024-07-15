@@ -8,7 +8,7 @@ Base = declarative_base()
 
 class User(Base):
     """ THis instance shall strat the class User """
-    ___tablename__ = 'users'
+    __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
     email = Column(String(250), nullable=False)
