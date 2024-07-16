@@ -15,9 +15,11 @@ def _hash_password(password: str = '') -> str:
     str_hsh: str = str(hsh_passwd.decode())
     return str_hsh
 
+
 def _generate_uuid() -> str:
     """ this function shall generate a uuid """
     return str(uuid4())
+
 
 class Auth:
     """Auth class to interact with the authentication database.
@@ -35,7 +37,7 @@ class Auth:
             pswd: str = _hash_password(password)
             usr = self._db.add_user(email, pswd)
         return usr
-    
+
     def valid_login(self, email: str, password: str) -> bool:
         """ this instance shall validate login"""
         if email is None or password is None:
@@ -47,7 +49,7 @@ class Auth:
             return valid
         except NoResultFound:
             return False
-        
+
     def create_session(self, email: str) -> str:
         """ this instance shall create a session"""
         try:
@@ -57,7 +59,7 @@ class Auth:
             return session_id
         except NoResultFound:
             return None
-        
+
     def get_user_from_session_id(self, session_id: str) -> str:
         """ this instance shall get user from session id"""
         if session_id is None:
@@ -66,8 +68,8 @@ class Auth:
             usr = self._db.find_user_by(session_id=session_id)
             return usr
         except (NoResultFound, InvalidRequestError):
-            return None 
-        
+            return None
+
     def destroy_session(self, user_id: str) -> None:
         """ this instance shall destroy session"""
         try:
@@ -75,7 +77,7 @@ class Auth:
             return None
         except ValueError:
             return None
-        
+
     def get_reset_password_token(self, email: str) -> str:
         """ this instance shall get reset password token"""
         if email is None:
@@ -88,7 +90,7 @@ class Auth:
             return token
         except (NoResultFound, InvalidRequestError):
             raise ValueError
-        
+
     def update_password(self, reset_token: str, password: str) -> None:
         """ this instance shall update password"""
         if reset_token is None or password is None:
