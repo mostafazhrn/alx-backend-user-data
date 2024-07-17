@@ -9,7 +9,7 @@ app = Flask(__name__)
 AUTH = Auth()
 
 
-@app.route('/reset_password', method=['PUT'])
+@app.route('/reset_password', methods=['PUT'])
 def reset_password() -> str:
     """ this instance shall reset a password """
     try:
@@ -25,7 +25,7 @@ def reset_password() -> str:
     return jsonify({"email": email, "message": "Password updates"}), 200
 
 
-@app.route('/reset_password', method=['POST'])
+@app.route('/reset_password', methods=['POST'])
 def get_reset_password_token() -> str:
     """ this instance shall get a reset password token """
     try:
@@ -40,7 +40,7 @@ def get_reset_password_token() -> str:
     return jsonify({"email": email, "reset_token": toke}), 200
 
 
-@app.route('/sessions', method=['DELETE'])
+@app.route('/sessions', methods=['DELETE'])
 def log_out() -> str:
     """ this instance shall init the log out """
     sesh_id = request.cookies.get('session_id', None)
@@ -53,7 +53,7 @@ def log_out() -> str:
     return redirect('/', code=302)
 
 
-@app.route('/sessions', method=['POST'])
+@app.route('/sessions', methods=['POST'])
 def log_in() -> str:
     """ this instance shall init the log in """
     try:
@@ -70,7 +70,7 @@ def log_in() -> str:
     abort(401)
 
 
-@app.route('/profile', method=['GET'])
+@app.route('/profile', methods=['GET'])
 def profile() -> str:
     """ this instance shall return a profile """
     sesh_id = request.cookies.get('session_id', None)
@@ -82,13 +82,13 @@ def profile() -> str:
     return jsonify({"email": usr.email}), 200
 
 
-@app.route('/', method=['GET'])
+@app.route('/', methods=['GET'])
 def hello_world() -> str:
     """ this instance shall return a greeting """
     return jsonify({"message": "Bienvenue"})
 
 
-@app.route('/users', method=['POST'])
+@app.route('/users', methods=['POST'])
 def register_user() -> str:
     """ this instance shall register a user """
     try:
